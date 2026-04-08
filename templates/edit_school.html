@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Edit School – Captain I Can!{% endblock %}
+{% block page_title %}Edit School Information{% endblock %}
+
+{% block content %}
+
+<!-- Shows which school you are editing -->
+<h2>Edit School: {{ school['name'] }}</h2>
+
+
+<!-- Form to edit the school's information -->
+<form method="post">
+
+    <br>
+
+    <!-- School name field -->
+    <label>School Name (Required)</label><br>
+    <input type="text" name="name" value="{{ form_data.name }}" style="width:300px;">
+    {% if errors.name %}
+        <small style="color:red;">{{ errors.name }}</small>
+    {% endif %}
+    <br><br>
+
+    <!-- Address field -->
+    <label>Address (Required)</label><br>
+    <input type="text" name="address" value="{{ form_data.address }}" style="width:300px;">
+    {% if errors.address %}
+        <small style="color:red;">{{ errors.address }}</small>
+    {% endif %}
+    <br><br>
+
+    <!-- Contact person field -->
+    <label>Contact Person (Required)</label><br>
+    <input type="text" name="contact_person" value="{{ form_data.contact_person }}" style="width:300px;">
+    {% if errors.contact_person %}
+        <small style="color:red;">{{ errors.contact_person }}</small>
+    {% endif %}
+    <br><br>
+
+    <!-- Contact phone number -->
+    <label>Contact Phone</label><br>
+    <input type="text" name="contact_phone" value="{{ form_data.contact_phone }}" style="width:300px;">
+    {% if errors.contact_phone %}
+        <small style="color:red;">{{ errors.contact_phone }}</small>
+    {% endif %}
+    <br><br>
+
+    <!-- Email field -->
+    <label>Contact Email</label><br>
+    <input type="email" name="contact_email" value="{{ form_data.contact_email }}" style="width:300px;">
+    {% if errors.contact_email %}
+        <small style="color:red;">{{ errors.contact_email }}</small>
+    {% endif %}
+    <br><br>
+
+    <!-- Capacity field -->
+    <label>Capacity</label><br>
+    <input type="number" name="capacity" value="{{ form_data.capacity }}" style="width:300px;">
+    {% if errors.capacity %}
+        <small style="color:red;">{{ errors.capacity }}</small>
+    {% endif %}
+    <br><br>
+
+    <!-- Times (CHANGED TO TIME SELECTORS) -->
+    <label>School Start Time</label><br>
+    <!-- ADDED: use type="time" instead of plain text -->
+    <input type="time" name="start_time"
+           value="{{ form_data.start_time }}" style="width:150px;">
+    <br><br>
+
+    <label>School End Time</label><br>
+    <!-- ADDED: use type="time" instead of plain text -->
+    <input type="time" name="end_time"
+           value="{{ form_data.end_time }}" style="width:150px;">
+    <br><br>
+
+    <!-- Exam dates -->
+    <label>Exam Dates</label><br>
+    <textarea name="exam_dates" rows="2" style="width:300px;">{{ form_data.exam_dates }}</textarea>
+    <br><br>
+
+    <!-- Holidays -->
+    <label>Holidays / Special Notes</label><br>
+    <textarea name="holidays" rows="2" style="width:300px;">{{ form_data.holidays }}</textarea>
+    <br><br>
+
+    <!-- Number of teachers -->
+    <label>Number of Teachers</label><br>
+    <input type="number" name="num_teachers" value="{{ form_data.num_teachers }}" style="width:300px;">
+    {% if errors.num_teachers %}
+        <small style="color:red;">{{ errors.num_teachers }}</small>
+    {% endif %}
+    <br><br>
+
+    <!-- Submit button -->
+    <button type="submit">Save Changes</button>
+    <br><br>
+
+    <!-- Back link -->
+    <a href="{{ url_for('list_schools') }}">Back to list</a>
+
+</form>
+
+<!-- ADDED: Separate form to delete this school -->
+<form method="post"
+      action="{{ url_for('delete_school', school_id=school['id']) }}"
+      onsubmit="return confirm('Are you sure you want to delete this school?');">
+    <br>
+    <button type="submit">Delete School</button>
+</form>
+
+{% endblock %}

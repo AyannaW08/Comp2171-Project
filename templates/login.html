@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CDMS Login</title>
+
+    
+    <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+    >
+
+    
+    <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin:0;
+        }
+
+        .box {
+            width: 600px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #aaa;
+            text-align: center;       
+        }
+
+        .box input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .error {
+            background: #ffdddd;
+            color: #900;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .logo {
+            max-width: 120px;
+            display: block;
+            margin: 0 auto 15px auto;   /* 🔥 Centers the logo */
+            border-radius: 8px;
+        }
+
+        .btn-purple {
+            background: #7b2cbf;      /* deep purple */
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn-purple:hover {
+            background: #5a189a;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="box">
+    
+      <!-- Flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+    <!-- Logo centered with class="logo" -->
+    <img 
+        src="{{ url_for('static', filename='logo.png') }}"
+        alt="Captain I Can Logo"
+        class="logo"
+    >
+
+    <h2>Captain I Can! CDMS</h2>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <input type="text" name="username" placeholder="Username" required>
+
+        <input type="password" name="password" placeholder="Password" required>
+        <br>
+        
+        <button class="btn">Login</button>
+    </form>
+    <br>
+    <br>
+    <h2>School Representative?</h2>
+    <a href="{{ url_for('feedback') }}">
+        <button type="button" class="btn-purple">Leave Feedback</button>
+    </a>
+
+</div>
+
+</body>
+</html>
