@@ -9,7 +9,7 @@ from typing import Dict, Optional
 
 class SchoolValidator:
     """
-    Validates all fields submitted through the Add School and Edit School forms.
+    Validates all fields submitted through the Add School and Update School forms.
     After calling validate(), check self.errors for any problems,
     and use the parsed field attributes to pass clean data to SchoolService.
     """

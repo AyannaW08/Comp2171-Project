@@ -121,10 +121,10 @@ def add_school():
     return render_template("add_school.html", form_data={}, errors={})
 
 
-@app.route("/schools/<int:school_id>/edit", methods=["GET", "POST"])
+@app.route("/schools/<int:school_id>/update", methods=["GET", "POST"])
 @login_required
-def edit_school(school_id):
-    """Edit an existing school's information (Feature 2)."""
+def update_school(school_id):
+    """Updates an existing school's information (Feature 2)."""
     school = SchoolService.get_school_or_404(school_id)
 
     if request.method == "POST":
@@ -132,14 +132,14 @@ def edit_school(school_id):
 
         if not validator.validate():
             flash("Please fix the errors below and try again.", "error")
-            return render_template("edit_school.html", school=school,
+            return render_template("update_school.html", school=school,
                                    form_data=request.form, errors=validator.errors)
 
         SchoolService.update_school(school, validator.to_dict())
         flash("School information updated successfully.", "success")
-        return redirect(url_for("edit_school", school_id=school_id))
+        return redirect(url_for("update_school", school_id=school_id))
 
-    return render_template("edit_school.html", school=school, form_data=school, errors={})
+    return render_template("update_school.html", school=school, form_data=school, errors={})
 
 
 @app.route("/schools/<int:school_id>/delete", methods=["POST"])
